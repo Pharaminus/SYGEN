@@ -1,0 +1,218 @@
+<!-- <!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            font-weight: bold;
+            width: 90%;
+            background-color: aliceblue;
+        }
+
+        body {
+            padding: 0;
+            margin: 0;
+        }
+
+        main {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        td {
+            text-align: center;
+        }
+
+        table,
+        td {
+            border: solid 2px rgb(2, 142, 152);
+        }
+
+        #head-pv {
+            font-size: 18px;
+        }
+    </style>
+</head>
+
+<body>
+    <header style="text-align: center;">
+        <h1>SYGEN</h1>
+    </header>
+    <main style="margin: 0; padding: 0; ">
+        <div style="display: flex; flex-direction: row; width: 100%;">
+            <div style="width: 35%; text-align: center;">
+                <p>
+                <h4>UNIVERSITE DE YAOUNDE I</h4>
+                <h5>FACULTE DES SCIENCESFACULTE</h5>
+                <h6> BP/P.O.Box 812 Yaoundé-CAMEROUN /</h6>
+                <h6> Tel : 222 234 496 / Email:</h6>
+                <h6>diplome@facsciences.uy1.cm</h6>
+                </p>
+            </div>
+            <div style="width: 30%; ">
+
+            </div>
+            <div style="width: 35%; text-align: center;">
+                <p>
+                <h4>UNIVERSITY OF YAOUNDE I</h4>
+                <h5>FACULTE DES SCIENCES</h5>
+                <h6>BP/P.O.Box 812 Yaoundé-CAMEROUN /</h6>
+                <h6>Tel : 222 234 496 / Email:</h6>
+                <h6>diplome@facsciences.uy1.cm</h6>
+                </p>
+            </div>
+        </div>
+        <div style="text-align: center;">
+            <h2>PROCES VERBAL DE L'UNITE D'ENSEIGNEMENT</h2>
+            <h3>INF221-BASES DE DONNEES ET MODELISATION</h3>
+            <h4>CONTROLE CONTINU ( CC )</h4>
+            <h5>FILIERE : INE - INFORMATIQUE</h5>
+            <h5>SPECIALITE : -</h5>
+        </div>
+        <table>
+            <tr id="head-pv">
+                <td>Num</td>
+                <td>Matricul</td>
+                <td>Nom et prenom</td>
+                <td>Note</td>
+                <td>Obser</td>
+            </tr>
+            <tr>
+                <td>01</td>
+                <td>21T2660</td>
+                <td>Balekamen babatack landry</td>
+                <td>14/20</td>
+                <td>ok</td>
+            </tr>
+        </table>
+    </main>
+</body>
+
+</html> -->
+
+
+<html>
+
+<head>
+ 
+    <title>Document</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+        }
+        main {
+            margin: 0;
+            padding: 0;
+        }
+
+        #block-info {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+        }
+
+        header {
+            text-align: center;
+        }
+
+        table {
+            border-collapse: collapse;
+            font-weight: bold;
+            margin-left: 15%;
+            background-color: red;
+        }
+
+        td {
+            text-align: center;
+        }
+
+        table,
+        td {
+            border: solid 2px rgb(2, 142, 152);
+        }
+
+        #head-pv {
+            font-size: 18px;
+        }
+
+        #info-pv {
+            text-align: center;
+        }
+
+        #info-uv {
+            text-align: center;
+            width: 35%;
+        }
+
+        #logo-uv {
+            width: 30%;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1> SYGEN </h1>
+    </header>
+    <main>
+        <div id="block-info">
+            <div id="info-uv">
+                <p>
+                <h4>UNIVERSITE DE YAOUNDE I</h4>
+                <h5>FACULTE DES SCIENCESFACULTE</h5>
+                <h6> BP/P.O.Box 812 Yaoundé-CAMEROUN /</h6>
+                <h6> Tel : 222 234 496 / Email:</h6>
+                <h6>diplome@facsciences.uy1.cm</h6>
+                </p>
+            </div>
+            <div id="logo-uv">
+
+            </div>
+            <div id="info-uv">
+                <p>
+                <h4>UNIVERSITY OF YAOUNDE I</h4>
+                <h5>FACULTE DES SCIENCES</h5>
+                <h6>BP/P.O.Box 812 Yaoundé-CAMEROUN /</h6>
+                <h6>Tel : 222 234 496 / Email:</h6>
+                <h6>diplome@facsciences.uy1.cm</h6>
+                </p>
+            </div>
+        </div>
+        <div id="info-pv">
+            <h2>PROCES VERBAL DE L'UNITE D'ENSEIGNEMENT</h2>
+            <h3>INF221-BASES DE DONNEES ET MODELISATION</h3>
+            <h4>CONTROLE CONTINU ( CC )</h4>
+            <h5>FILIERE : INE - INFORMATIQUE</h5>
+            <h5>SPECIALITE : -</h5>
+        </div>
+        <table>
+            <tr id='head-pv'>
+                <td>Num</td>
+                <td> Matricul </td>
+                <td> Nom et prenom </td>
+                <td>Note </td>
+                <td> Observation </td>
+            </tr>
+        </table>
+    </main>
+</body>
+
+</html>
+
+<!-- <html>
+<head>
+    <title>Document</title>
+</head>
+<body style="display: flex; flex-direction: column;">
+    <div style="border: solid 3px; margin-bottom: 5px;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo, accusantium.</div>
+    <div style="border: solid 3px; margin-bottom: 5px;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo, accusantium.</div>
+    <div style="border: solid 3px; margin-bottom: 5px;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo, accusantium.</div>
+</body>
+</html> -->

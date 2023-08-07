@@ -1,0 +1,45 @@
+version: '3.8'
+services:
+#Configuration de la base de données
+  mysqldb:
+    container_name: mysql_database_ct
+    image: mysql:latest
+    restart: unless-stopped
+    env_file:
+      - ./.env
+    environment:
+      - MYSQL_ROOT_PASSWORD=$MYSQLDB_ROOT_PASSWORD
+      - MYSQL_DATABASE=$MYSQLDB_DATABASE
+    ports:
+      - $MYSQLDB_LOCAL_PORT:$MYSQLDB_DOCKER_PORT
+      
+    volumes:
+      - ./db:/var/lib/mysql
+    networks:
+      - network_mysql
+
+  
+  #Configuration de PHPMyAdmin
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin_cherif
+    links:
+      - mysqldb
+    ports:
+      - 8081:80
+    restart: always
+    environment:
+      PMA_HOST: mysql_database_ct
+    depends_on:
+      - mysqldb
+    networks:
+      - network_mysql
+
+
+volumes:
+  db:
+
+networks:
+  network_mysql:
+    name: network_mysql
+    driver: bridge 

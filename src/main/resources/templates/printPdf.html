@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: rgb(199, 192, 206);
+            /* background: linear-gradient(rgb(210, 201, 201),rgb(79, 78, 78)); */
+            /* background: linear-gradient(rgb(188, 185, 185),rgb(138, 24, 24)); */
+        }
+        form{
+            border: solid rgb(33, 32, 32) 2px;
+            border-radius: 20px;
+            box-shadow: 4px 4px 4px 3px rgb(60, 57, 57);
+            margin-top: 10%;
+            background-color: rgb(10, 153, 153);
+            width: 40%;
+            height: 300px;
+            padding-top: 3%;
+            padding-left: 10%;
+        }
+        
+
+        label{
+            text-align: left;
+            display: inline-block;
+            /* border: solid black 2px; */
+        }
+
+        label, input, select{
+            font-size: 16px;
+            font-weight: bold;
+            width: 200px;
+            margin-bottom: 15px;
+        }
+
+        header{
+            height: 80px;
+            width: 100%;
+            padding-top: 1%;
+            padding-bottom: 0;
+            text-align: center;
+            justify-content: center;
+            background-color: rgb(10, 153, 153);
+            border-bottom: solid 3px black;
+        }
+    </style>
+</head>
+<body>
+    <header><h2> Formulaire de telechargement de pv </h2></header>
+    <form method="post" action="/production/pvcc">
+        <label for="ue">Unite d'enseignement</label>
+        <input type="text" id="ue"><br>
+        <label for="filiere">Filere</label>
+        <input type="text" id="filiere"><br>
+        <label for="niveau">Niveau</label>
+        <select name="niveau" id="niveau">
+            <option value="Licence">Licence 1</option>
+            <option value="Licence2">Licence 2</option>
+            <option value="Licence3">Licence 3</option>
+            <option value="Master1">Master 1</option>
+            <option value="Master1">Master 2</option>
+        </select><br>
+        <label for="semestre">semestre</label>
+        <select name="semestre" id="semestre">
+            <option value="semestre1">semestre 1</option>
+            <option value="semestre2">semestre 2</option>
+            <option value="semestre3">semestre 3</option>
+            <option value="semestre4">semestre 4</option>
+        </select><br>
+        <label for="typepv">Type de Pv</label>
+        <select name="typepv" id="typepv">
+            <option value="pv-cc">CC</option>
+            <option value="pv-tp">TP</option>
+            <option value="pv-ue">UE</option>
+            <option value="pv-recap"> Recap</option>
+        </select><br>
+        <label for="annee">Année</label>
+        <input type="date" name="annee" id="annee"><br>
+        <input type="submit" value="Telecharger le PV" style="margin-left: 20%; margin-top: 2%;">
+    </form>
+</body>
+</html>
