@@ -7,12 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.APP.SYGEN.model.Etudiant;
+import com.APP.SYGEN.model.Participe;
 import com.APP.SYGEN.repository.EtudiantRepository;
 import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
 @Service
 public class EtudiantServiceImpl implements EtudiantService{
     @Autowired
     private EtudiantRepository etudiantRepository;
+    @Autowired
+    private ParticipeService participeService;
     @Override
     public Etudiant CreateEtudiant(Etudiant etudiant) {
         return etudiantRepository.save(etudiant);
@@ -58,13 +61,20 @@ public class EtudiantServiceImpl implements EtudiantService{
     }
 
     @Override
-    public List<Etudiant> getEtudiantByYears(int annee) {
-        List<Etudiant> etudiants;
+    public List<Etudiant> getEtudiantByYears(int annee, String filNiv) {
+        List<Participe> participes = participeService.getAllParticipeByYear(annee);
+        List<Etudiant> etudiantType = this.getEtudiantByFilNiv(filNiv);
+        List<Etudiant> etudiants = new ArrayList<Etudiant>();
+        // for(int i = 0 ; i < participes.size(); i++ ){
+        //     if()
+        // }
+        // List<Etudiant> etudiants;
+        return etudiants;
     }
 
     @Override
     public List<Etudiant> getEtudiantByMat(String matricule) {
-        return etudiantRepository.fin
+        return etudiantRepository.findByMatricule(matricule);
     }
     
 }

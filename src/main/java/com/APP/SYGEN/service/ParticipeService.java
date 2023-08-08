@@ -11,6 +11,8 @@ public interface ParticipeService {
     void deleteByIdParticipe(Integer id);
     Participe getParticipe(Integer id);
     List<Participe> getAllParticipe();
+    List<Participe> getAllParticipeByYear(int annee);
+
     Participe getAllParticipeByMat(String matricule, String type);
 
     // Participe getParticipeByMatAndNoteType(String matricule, String type);

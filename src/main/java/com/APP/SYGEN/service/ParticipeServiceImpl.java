@@ -67,6 +67,11 @@ public class ParticipeServiceImpl implements ParticipeService {
         return participesType;         
     }
 
+    @Override
+    public List<Participe> getAllParticipeByYear(int annee) {
+        return participeRepository.findByDate_importation(annee);
+    }
+
     // @Override
     // public Participe getParticipeByMatAndNoteType(String matricule, String type) {
     //     List<Participe> participes = new ArrayList<Participe>();

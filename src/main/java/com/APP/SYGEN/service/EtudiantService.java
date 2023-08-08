@@ -19,5 +19,5 @@ public interface EtudiantService {
     List<Etudiant> getAllEtudiant();
     List<Etudiant> getEtudiantByFilNiv(String filNiv);
     List<Etudiant> getEtudiantByMat(String matricule);
-    List<Etudiant> getEtudiantByYears(int annee);
+    List<Etudiant> getEtudiantByYears(int annee, String filNiv);
 }
