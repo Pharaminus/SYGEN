@@ -45,9 +45,9 @@ public class Datapv {
     public void setAnnee(LocalDate annee) {
         this.annee = annee;
     }
-    public Datapv() {
+    public void DataForm() {
     }
-    public Datapv(String ue, String filiere, String niveau, String semestre, String typePv, LocalDate annee) {
+    public void DataForm(String ue, String filiere, String niveau, String semestre, String typePv, LocalDate annee) {
         this.ue = ue;
         this.filiere = filiere;
         this.niveau = niveau;
