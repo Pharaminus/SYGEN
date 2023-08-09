@@ -18,8 +18,8 @@ public class FilNiv {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idFil;
-    private String Code;
-    private String Libelle;
+    private String code;
+    private String libelle;
 
     @OneToMany(mappedBy = "filNiv")
     private List<Etudiant> etudiant;
@@ -31,8 +31,8 @@ public class FilNiv {
     // constructeur paramettre
     public FilNiv(String Code, String Libelle) {
 
-        this.Code = Code;
-        this.Libelle = Libelle;
+        this.code = Code;
+        this.libelle = Libelle;
     }
 
     // getters et setters
@@ -45,19 +45,19 @@ public class FilNiv {
     }
 
     public String getCode() {
-        return this.Code;
+        return this.code;
     }
 
     public void setCode(String Code) {
-        this.Code = Code;
+        this.code = Code;
     }
 
     public String getLibelle() {
-        return this.Libelle;
+        return this.libelle;
     }
 
     public void setLibelle(String Libelle) {
-        this.Libelle = Libelle;
+        this.libelle = Libelle;
     }
 
     public List<Etudiant> getEtudiant() {

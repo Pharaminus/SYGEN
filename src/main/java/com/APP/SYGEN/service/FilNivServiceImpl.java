@@ -40,5 +40,10 @@ public class FilNivServiceImpl implements FilNivService{
     public List<FilNiv> getAllFilNiv() {
         return filNivRepository.findAll();
     }
+
+    @Override
+    public FilNiv getByCode(String code) {
+        return filNivRepository.findByCode(code);
+    }
     
 }

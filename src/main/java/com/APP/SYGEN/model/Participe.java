@@ -26,7 +26,7 @@ public class Participe {
     private float note;
     private int anonymat;
     private String nomEtudiant;
-    private LocalDate date_importation;
+    private LocalDate dateImportation;
     private int userId ;
 
     @ManyToOne
@@ -42,12 +42,12 @@ public class Participe {
     }
     
 
-    public Participe(String matricule, float note, int anonymat, String nomEtudiant, LocalDate date_importation, int userId, Evaluation evaluation, Etudiant etudiant) {
+    public Participe(String matricule, float note, int anonymat, String nomEtudiant, LocalDate dateImportation, int userId, Evaluation evaluation, Etudiant etudiant) {
         this.matricule = matricule;
         this.note = note;
         this.anonymat = anonymat;
         this.nomEtudiant = nomEtudiant;
-        this.date_importation = date_importation;
+        this.dateImportation = dateImportation;
         this.userId = userId;
         this.evaluation = evaluation;
         this.etudiant = etudiant;
@@ -86,12 +86,12 @@ public class Participe {
         this.nomEtudiant = nomEtudiant;
     }
 
-    public int getDate_importation() {
-        return this.date_importation.getYear();
+    public LocalDate getDateImportation() {
+        return this.dateImportation;
     }
 
-    public void setDate_importation(LocalDate date_importation) {
-        this.date_importation = date_importation;
+    public void setDateImportation(LocalDate dateImportation) {
+        this.dateImportation = dateImportation;
     }
 
     public int getUserId() {

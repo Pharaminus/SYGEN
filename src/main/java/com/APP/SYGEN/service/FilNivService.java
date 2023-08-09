@@ -11,4 +11,5 @@ public interface FilNivService {
     void deleteByIdFilNiv(Integer id);
     FilNiv getFilNiv(Integer id);
     List<FilNiv> getAllFilNiv();
+    FilNiv getByCode(String code);
 }

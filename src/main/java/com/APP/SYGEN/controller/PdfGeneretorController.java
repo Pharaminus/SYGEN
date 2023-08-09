@@ -1,5 +1,7 @@
 package com.APP.SYGEN.controller;
 
+import java.io.IOException;
+import java.time.LocalDate;
 // // import java.io.File;
 import java.util.List;
 
@@ -17,9 +19,11 @@ import org.xhtmlrenderer.pdf.ITextRenderer;
 
 import com.APP.SYGEN.model.Datapv;
 import com.APP.SYGEN.model.Etudiant;
+import com.APP.SYGEN.model.Evaluation;
 import com.APP.SYGEN.model.Participe;
 import com.APP.SYGEN.service.EtudiantService;
 import com.APP.SYGEN.service.ParticipeService;
+import com.lowagie.text.DocumentException;
 
 // // import com.APP.SYGEN.service.EtudiantService;
 // // import com.APP.SYGEN.service.ParticipeService;
@@ -37,155 +41,55 @@ public class PdfGeneretorController {
     private EtudiantService etudiantService;
 
     @PostMapping(path = "pvcc")
-     public void generatePdf(jakarta.servlet.http.HttpServletResponse response, @ModelAttribute("data") Datapv data) {
-       List<Participe> participe;
-       participe = participeService.getAllParticipe();
+    public String testShow(jakarta.servlet.http.HttpServletResponse response, @ModelAttribute("data") Datapv data){
+        Datapv datapv = new Datapv();
+        String typePv = "";
+        Evaluation evaluation = new Evaluation();
+        String htmlCorp = "";
+        List<Participe> participes = participeService.getParticipeUe(typePv, 1, LocalDate.parse("2023-08-01"), "INF-232");
+        if(participes.isEmpty() == false){    
+            for(int i = 0; i < participes.size(); i++){
+                htmlCorp = htmlCorp + "<tr>";
+                htmlCorp = htmlCorp + "<td>"+ i +"</td>";
+                htmlCorp = htmlCorp + "<td>"+ participes.get(i).getMatricule()+"</td>";
+                htmlCorp = htmlCorp + "<td>"+ participes.get(i).getNomEtudiant() +"</td>";
+                htmlCorp = htmlCorp + "<td>"+ participes.get(i).getNote() +"</td>";
+                if(etudiantService.geEtudiantByMatricule(participes.get(i).getMatricule()).isEmpty())
+                    htmlCorp = htmlCorp + "<td>"+"Etudiant non autoris\u00E9" +"</td>";
+                else
+                    htmlCorp = htmlCorp + "<td>"+"ok" +"</td>";
+                htmlCorp = htmlCorp + "</tr>";
 
-        try {
-            // String html = "<html><body><h1>Pv CC Good Test</h1> <table style='border:solid black 3px;'><tr><td>Nom </td> <td>Prenom </td> <td>Matricule </td></tr> <tr><td>Balekamen Babatack </td> <td>Landry </td> <td>21T2660 </td></tr></table> </body></html>";
-            String htmlcorp = "";
-            for(int i = 0; i < participe.size(); i++){
-                String type = "cc";
-                if(participe.get(i).getEvaluation().getTypeEval().equalsIgnoreCase(type))
-                    htmlcorp = htmlcorp + "<tr id='head-pv'><td>"+i+" </td><td>"+ participe.get(i).getMatricule()+"</td><td>"+participe.get(i).getNomEtudiant()+"</td><td>"+participe.get(i).getNote()+"</td><td>Ok</td></tr>";
             }
-
+            try{
             response.setContentType("application/pdf");
-            response.setHeader("Content-Disposition", "attachment; filename=cc.pdf");
-           
-            String htmlTest = "\n" + //
-                    "<html>\n" + //
-                    "\n" + //
-                    "<head style='background-color:yellow;'>\n" + //
-                    " \n" + //
-                    "    <title>Document</title>\n" + //
-                    "    <style>\n" + //
-                    // "        @page{margin-top:0cm; margin-bottom:0cm; margin-left:0cm; margin-rigth:0cm;\n" + //
-                    "        main {\n" + //
-
-                    "            margin: 0;\n" + //
-                    "            padding: 0;\n" + //
-                    "        }\n" + //
-                    "\n" + //
-                    "        #block-info {\n" + //
-                    // "            display: flex;\n" + //
-                    // "            flex-direction: column;\n" + //
-                    "            width: 100%;\n" + //
-                    "        }\n" + //
-                    "\n" + //
-                    "        header {\n" + //
-                    "            text-align: center;\n" + //
-                    "        }\n" + //
-                    "\n" + //
-                    "        table {\n" + //
-                    "            border-collapse: collapse;\n" + //
-                    "            font-weight: bold;\n" + //
-                    // "            margin-left: 15%;\n" + //
-                    "            width:100%;\n" + //
-
-                    "        }\n" + //
-                    "\n" + //
-                    "        td {\n" + //
-                    "            text-align: center;\n" + //
-                    "        }\n" + //
-                    "\n" + //
-                    "        table,\n" + //
-                    "        td {\n" + //
-                    "            border: solid 2px rgb(2, 142, 152);\n" + //
-                    "        }\n" + //
-                    "\n" + //
-                    "        #head-pv {\n" + //
-                    "            font-size: 18px;\n" + //
-                    "        }\n" + //
-                    "\n" + //
-                    "        #info-pv {\n" + //
-                    "            text-align: center;\n" + //
-                    "        }\n" + //
-                    // "\n" + //
-                    "        .info-uv {\n" + //
-                    "            text-align: center;\n" + //
-                    "            display:inline-block;\n"+//            
-                    // "            border:solid 3px blue;\n"+//                  
-                    // "            color:blue;\n"+//
-
-                    "            width: 40%;\n" + //
-                    "        }\n" + //
-                    "\n" + //
-                    "        #logo-uv {\n" + //
-                    "            width: 30%;\n" + //
-                    "            display:inline-block;\n"+//            
-
-                    "        }\n" + //
-                    "    </style>\n" + //
-                    "</head>\n" + //
-                    "\n" + //
-                    "<body style='margin-top:0px; padding-top:0px; '>\n" + //
-                    // "    <header>\n" + //
-                    // "        <h1> SYGEN </h1>\n" + //
-                    // "    </header>\n" + //
-                    "    <main>\n" + //
-                    "        <div id=\"block-info\" style='margin:0; padding:0;'>\n" + //
-                    "            <div class=\"info-uv\" style='margin-left:-2px;'>\n" + //
-                    // "                <p>\n" + //
-                    "                <h4 style='margin:8px;' >UNIVERSITE DE YAOUNDE I</h4>\n" + //
-                    "                <h5 style='margin:8px;'>FACULTE DES SCIENCESFACULTE</h5>\n" + //
-                    "                <h6 style='margin:8px;'> BP/P.O.Box 812 Yaound\u00E9-CAMEROUN /</h6>\n" + //
-                    "                <h6 style='margin:8px;'> Tel : 222 234 496 / Email:</h6>\n" + //
-                    "                <h6 style='margin:8px;'>diplome@facsciences.uy1.cm</h6>\n" + //
-                    // "                </p>\n" + //
-                    "            </div>\n" + //
-                    // "            <div id=\"logo-uv\">\n" + //
-                    // "\n" + //
-                    // "            </div>\n" + //
-                    "            <div class=\"info-uv\" style='margin-left:100px;'>\n" + //
-                    // "                <p>\n" + //
-                    "                <h4 style='margin:8px;'>UNIVERSITY OF YAOUNDE I</h4>\n" + //
-                    "                <h5 style='margin:8px;'>FACULTE DES SCIENCES</h5>\n" + //
-                    "                <h6 style='margin:8px;'>BP/P.O.Box 812 Yaound\u00E9-CAMEROUN /</h6>\n" + //
-                    "                <h6 style='margin:8px;'>Tel : 222 234 496 / Email:</h6>\n" + //
-                    "                <h6 style='margin:8px;'>diplome@facsciences.uy1.cm</h6>\n" + //
-                    // "                </p>\n" + //
-                    "            </div>\n" + //
-                    "        </div>\n" + //
-                    "        <div id=\"info-pv\">\n" + //
-                    "            <h2 style='margin:3px;'>PROCES VERBAL DE L'UNITE D'ENSEIGNEMENT</h2>\n" + //
-                    "            <h3 style='margin:3px;'>INF221-BASES DE DONNEES ET MODELISATION</h3>\n" + //
-                    "            <h4 style='margin:3px;'>CONTROLE CONTINU ("+ data.getTypePv() +")</h4>\n" + //
-                    "            <h5 style='margin:3px;'>FILIERE : INE - INFORMATIQUE</h5>\n" + //
-                    "            <h5 style='margin:3px;'>SPECIALITE : -</h5>\n" + //
-                    "        </div>\n" + //
-                    "        <table>\n" + //
-                    "            <tr id='head-pv'>\n" + //
-                    "                <td>Num</td>\n" + //
-                    "                <td> Matricul </td>\n" + //
-                    "                <td> Nom et prenom </td>\n" + //
-                    "                <td>Note </td>\n" + //
-                    "                <td> Observation </td>\n" + //
-                    "            </tr>\n" + //
-                    htmlcorp+
-                    "        </table>\n" + //
-                    "    </main>\n" + //
-                    "</body>\n" + //
-                    "\n" + //
-                    "</html>";
-            
-            
-          
-            
-            ServletOutputStream outputStream = response.getOutputStream();
-
-            ITextRenderer renderer = new ITextRenderer();
-            renderer.setDocumentFromString(htmlTest);
-            // renderer.setDocument(new File("index.html"));
-            renderer.layout();
-            renderer.createPDF(outputStream);
-            
-            // Flush and close the output stream
-            outputStream.flush();
-            outputStream.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+                response.setHeader("Content-Disposition", "attachment; filename=cc.pdf");
+            try (ServletOutputStream outputStream = response.getOutputStream()) {
+                ITextRenderer renderer = new ITextRenderer();
+                renderer.setDocumentFromString(datapv.cCpdfContent(htmlCorp, "INFI-L1", evaluation));
+                // renderer.setDocument(new File("index.html"));
+                renderer.layout();
+                renderer.createPDF(outputStream);
+                
+                // Flush and close the output stream
+                outputStream.flush();
+                outputStream.close();
+            } catch (DocumentException | IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return "Document builds with sucess!!!";
         }
+        else{
+            return "Document not founded";
+
+        }
+        
+        
+
     }
 
 

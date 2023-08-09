@@ -1,5 +1,6 @@
 package com.APP.SYGEN.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,38 +56,28 @@ public class ParticipeServiceImpl implements ParticipeService {
         return participeRepository.findAll();
     }
 
-    @Override
-    public Participe getAllParticipeByMat(String matricule, String type) {
-        List<Participe> participes = new ArrayList<Participe>();
-        participes = participeRepository.findByMatricule(matricule);
-        Participe participesType = new Participe();
-        for (int j = 0; j <participes.size(); j++) {
-            if(participes.get(j).getEvaluation().getTypeEval().equalsIgnoreCase(type))
-                participesType = participes.get(j);
-        }
-        return participesType;         
-    }
-
-    @Override
-    public List<Participe> getAllParticipeByYear(int annee) {
-        return participeRepository.findByDate_importation(annee);
-    }
-
     // @Override
-    // public Participe getParticipeByMatAndNoteType(String matricule, String type) {
-    //     List<Participe> participes = new ArrayList<Participe>();
-    //     Participe participesType = new Participe();
-    //     participes = participeRepository.findByMat(matricule);
-    //     // Query query = (Query) entityManager.createQuery("SELECT * FROM participe WHERE participe.matricule = :matricule");
-    //     // // jakarta.persistence.Query query2 = entityManager.createNativeQuery("SELECT * FROM participe WHERE participe.matricule = :matricule");
-    //     // query.setParameter("matricule", matricule);
-    //     // participes = query.getResultList();
-    //     for (int j = 0; j <participes.size(); j++) {
-    //         if(participes.get(j).getEvaluation().getTypeEval() == type)
-    //             participesType = participes.get(j);
-    //     }
-    //     return participesType; 
-
+    // public List<Participe> getAllParticipeByYear(int annee) {
+    //     return participeRepository.findByDate_importation(annee);
     // }
+
+    @Override
+    public List<Participe> getParticipeUe(String type, int semestre, LocalDate date, String codeUe) {
+        List<Participe> participesDate = participeRepository.findByDateImportation(date);
+        List<Participe> participesUe = new ArrayList<Participe>();
+
+        for(int i = 0; i < participesDate.size(); i++){
+            if(participesDate.get(i).getEvaluation().getTypeEval().equalsIgnoreCase(type) && participesDate.get(i).getEvaluation().getSemestre() == semestre && participesDate.get(i).getEvaluation().getUE().getCodeUE().equalsIgnoreCase(codeUe)){
+                participesUe.add(participesDate.get(i));
+            }
+        }
+        return participesUe;
+    }
+
+   
+
+
+
+
 
 }
