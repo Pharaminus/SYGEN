@@ -2,7 +2,6 @@ package com.APP.SYGEN.model;
 
 import java.time.LocalDate;
 
-import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
 
 public class Datapv {
     private String ue;
@@ -12,38 +11,39 @@ public class Datapv {
     private String typePv;
     private LocalDate annee;
     private String contentPdf;
+    
     public String getUe() {
-        return this.ue;
+        return ue;
     }
     public void setUe(String ue) {
         this.ue = ue;
     }
     public String getFiliere() {
-        return this.filiere;
+        return filiere;
     }
     public void setFiliere(String filiere) {
         this.filiere = filiere;
     }
     public String getNiveau() {
-        return this.niveau;
+        return niveau;
     }
     public void setNiveau(String niveau) {
         this.niveau = niveau;
     }
     public String getSemestre() {
-        return this.semestre;
+        return semestre;
     }
     public void setSemestre(String semestre) {
         this.semestre = semestre;
     }
     public String getTypePv() {
-        return this.typePv;
+        return typePv;
     }
     public void setTypePv(String typePv) {
         this.typePv = typePv;
     }
     public LocalDate getAnnee() {
-        return this.annee;
+        return annee;
     }
     public void setAnnee(LocalDate annee) {
         this.annee = annee;
@@ -59,8 +59,13 @@ public class Datapv {
         this.annee = annee;
     }
 
+    // methode permettant de creer le pdf d'un controle continue
+
     public String cCpdfContent(String htmlCorp, String filiere, Evaluation evaluation){
-        
+        if(evaluation.getTypeEval().equals("cc"))
+            evaluation.setTypeEval("CONTROLE CONTINU ( CC )");
+        else if(evaluation.getTypeEval().equals("tp"))
+            evaluation.setTypeEval("TRAVAUX PRATIQUES ( TP )");    
         this.contentPdf = "\n" + //
                     "<html>\n" + //
                     "\n" + //
@@ -181,9 +186,9 @@ public class Datapv {
                     "        </div>\n" + //
                     "        <div id=\"info-pv\">\n" + //
                     "            <h2 style='margin:3px;'>PROCES VERBAL DE L'UNITE D'ENSEIGNEMENT</h2>\n" + //
-                    "            <h3 style='margin:3px;'>INF221-BASES DE DONNEES ET MODELISATION</h3>\n" + //
-                    "            <h4 style='margin:3px;'>CONTROLE CONTINU (cc)</h4>\n" + //
-                    "            <h5 style='margin:3px;'>FILIERE : INE - INFORMATIQUE</h5>\n" + //
+                    "            <h3 style='margin:3px;'>"+evaluation.getUE().getCodeUE()+" "+evaluation.getUE().getIntutile()+"</h3>\n" + //
+                    "            <h4 style='margin:3px;'>"+ evaluation.getTypeEval()+"</h4>\n" + //
+                    "            <h5 style='margin:3px;'>FILIERE : INE - "+filiere+"</h5>\n" + //
                     "            <h5 style='margin:3px;'>SPECIALITE : -</h5>\n" + //
                     "        </div>\n" + //
                     "        <table>\n" + //
@@ -205,6 +210,8 @@ public class Datapv {
         return this.contentPdf;
     }
 
+
+    // methode permettant de creer le pdf du pv d'une unite d'enseignement
     public String uEpdfContent(String htmlCorp, String filiere, Evaluation evaluation){
         String contentPdf = "\n" + //
                     "<html>\n" + //
@@ -213,7 +220,8 @@ public class Datapv {
                     " \n" + //
                     "    <title>Document</title>\n" + //
                     "    <style>\n" + //
-                    // "        @page{margin-top:0cm; margin-bottom:0cm; margin-left:0cm; margin-rigth:0cm;\n" + //
+                    "        @media print{ \n" + //
+                    "       @page{size:landscape;}}\n"+ //
                     "        main {\n" + //
 
                     "            margin: 0;\n" + //
@@ -322,8 +330,8 @@ public class Datapv {
                     "        </div>\n" + //
                     "        <div id=\"info-pv\">\n" + //
                     "            <h2 style='margin:3px;'>PROCES VERBAL DE L'UNITE D'ENSEIGNEMENT</h2>\n" + //
-                    "            <h3 style='margin:3px;'>INF221-BASES DE DONNEES ET MODELISATION</h3>\n" + //
-                    "            <h4 style='margin:3px;'>CONTROLE CONTINU (cc) Travaux Pratique(TP) et Session Normale (SN)</h4>\n" + //
+                    "            <h3 style='margin:3px;'>"+"evaluation.getUE().getCodeUE()"+" "+ "evaluation.getUE().getIntutile()"+"</h3>\n" + //
+                    "            <h4 style='margin:3px;'>"+ "evaluation.getTypeEval()"+"</h4>\n" + //
                     "            <h5 style='margin:3px;'>FILIERE : INE - INFORMATIQUE</h5>\n" + //
                     "            <h5 style='margin:3px;'>SPECIALITE : -</h5>\n" + //
                     "        </div>\n" + //

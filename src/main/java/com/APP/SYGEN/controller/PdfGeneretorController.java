@@ -2,6 +2,7 @@ package com.APP.SYGEN.controller;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 // // import java.io.File;
 import java.util.List;
 
@@ -21,6 +22,7 @@ import com.APP.SYGEN.model.Datapv;
 import com.APP.SYGEN.model.Etudiant;
 import com.APP.SYGEN.model.Evaluation;
 import com.APP.SYGEN.model.Participe;
+import com.APP.SYGEN.repository.EvaluationRepository;
 import com.APP.SYGEN.service.EtudiantService;
 import com.APP.SYGEN.service.ParticipeService;
 import com.lowagie.text.DocumentException;
@@ -36,6 +38,8 @@ import jakarta.servlet.ServletOutputStream;
 public class PdfGeneretorController {
     @Autowired
     private ParticipeService participeService;
+    @Autowired
+    private EvaluationRepository evaluationRepository;
 
     @Autowired
     private EtudiantService etudiantService;
@@ -43,10 +47,11 @@ public class PdfGeneretorController {
     @PostMapping(path = "pvcc")
     public String testShow(jakarta.servlet.http.HttpServletResponse response, @ModelAttribute("data") Datapv data){
         Datapv datapv = new Datapv();
-        String typePv = "";
-        Evaluation evaluation = new Evaluation();
+        Evaluation evaluation1 = new Evaluation();
+        List<Evaluation> evaluation = new ArrayList<Evaluation>();
+        evaluation = evaluationRepository.findByTypeEval(data.getTypePv());
         String htmlCorp = "";
-        List<Participe> participes = participeService.getParticipeUe(typePv, 1, LocalDate.parse("2023-08-01"), "INF-232");
+        List<Participe> participes = participeService.getParticipeUe(data.getTypePv(), Integer.parseInt(data.getSemestre()), data.getAnnee(), data.getUe());
         if(participes.isEmpty() == false){    
             for(int i = 0; i < participes.size(); i++){
                 htmlCorp = htmlCorp + "<tr>";
@@ -63,10 +68,11 @@ public class PdfGeneretorController {
             }
             try{
             response.setContentType("application/pdf");
-                response.setHeader("Content-Disposition", "attachment; filename=cc.pdf");
+            
+                response.setHeader("Content-Disposition", "attachment; filename="+data.getTypePv()+"-"+ data.getUe()+"-"+data.getAnnee());
             try (ServletOutputStream outputStream = response.getOutputStream()) {
                 ITextRenderer renderer = new ITextRenderer();
-                renderer.setDocumentFromString(datapv.cCpdfContent(htmlCorp, "INFI-L1", evaluation));
+                renderer.setDocumentFromString(datapv.cCpdfContent(htmlCorp, data.getFiliere(), evaluation.get(0)));
                 // renderer.setDocument(new File("index.html"));
                 renderer.layout();
                 renderer.createPDF(outputStream);

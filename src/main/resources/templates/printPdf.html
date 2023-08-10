@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -57,32 +57,34 @@
 </head>
 <body>
     <header><h2> Formulaire de telechargement de pv </h2></header>
-    <form method="post" action="/production/pvcc">
+    <!-- <form method="post" action="/production/pvcc   "> -->
+    <form method="post" action="/api/test2   ">
+
         <label for="ue">Unite d'enseignement</label>
-        <input type="text" id="ue"><br>
+        <input type="text" id="ue" name="ue"><br>
         <label for="filiere">Filere</label>
-        <input type="text" id="filiere"><br>
+        <input type="text" id="filiere" name="filiere"><br>
         <label for="niveau">Niveau</label>
         <select name="niveau" id="niveau">
-            <option value="Licence">Licence 1</option>
-            <option value="Licence2">Licence 2</option>
-            <option value="Licence3">Licence 3</option>
-            <option value="Master1">Master 1</option>
-            <option value="Master1">Master 2</option>
+            <option value="INF-L1">INF-L1</option>
+            <option value="INF-L2">INF-L2</option>
+            <option value="INF-L3">INF-L3</option>
+            <option value="Master1">Master1</option>
+            <option value="Master1">Master2</option>
         </select><br>
         <label for="semestre">semestre</label>
         <select name="semestre" id="semestre">
-            <option value="semestre1">semestre 1</option>
-            <option value="semestre2">semestre 2</option>
-            <option value="semestre3">semestre 3</option>
-            <option value="semestre4">semestre 4</option>
+            <option value="1"> 1</option>
+            <option value="2"> 2</option>
+            <option value="3"> 3</option>
+            <option value="4"> 4</option>
         </select><br>
         <label for="typepv">Type de Pv</label>
-        <select name="typepv" id="typepv">
-            <option value="pv-cc">CC</option>
-            <option value="pv-tp">TP</option>
-            <option value="pv-ue">UE</option>
-            <option value="pv-recap"> Recap</option>
+        <select name="typePv" id="typePv">
+            <option value="cc">cc</option>
+            <option value="tp">tp</option>
+            <option value="ue">ue</option>
+            <option value="recap"> Recap</option>
         </select><br>
         <label for="annee">Année</label>
         <input type="date" name="annee" id="annee"><br>
