@@ -67,7 +67,7 @@ public class Datapv {
         else if(evaluation.getTypeEval().equals("tp"))
             evaluation.setTypeEval("TRAVAUX PRATIQUES ( TP )");    
         this.contentPdf = "\n" + //
-                    "<html>\n" + //
+                    "<html xmlns:th=\"http://www.thymeleaf.org\">\n" + //
                     "\n" + //
                     "<head style='background-color:yellow;'>\n" + //
                     " \n" + //
@@ -220,8 +220,8 @@ public class Datapv {
                     " \n" + //
                     "    <title>Document</title>\n" + //
                     "    <style>\n" + //
-                    "        @media print{ \n" + //
-                    "       @page{size:landscape;}}\n"+ //
+                    // "        @media print{ \n" + //
+                    // "       @page{size:landscape;}}\n"+ //
                     "        main {\n" + //
 
                     "            margin: 0;\n" + //
@@ -229,8 +229,6 @@ public class Datapv {
                     "        }\n" + //
                     "\n" + //
                     "        #block-info {\n" + //
-                    // "            display: flex;\n" + //
-                    // "            flex-direction: column;\n" + //
                     "            width: 110%;\n" + //
                     "        }\n" + //
                     "\n" + //

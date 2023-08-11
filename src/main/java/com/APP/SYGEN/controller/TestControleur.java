@@ -62,7 +62,7 @@ public class TestControleur {
 
     
     @PostMapping(path = "testcc")
-    public String testShow(jakarta.servlet.http.HttpServletResponse response, @ModelAttribute("data") Datapv data) throws DocumentException{
+    public String testShow(jakarta.servlet.http.HttpServletResponse response, @ModelAttribute("data") Datapv data){
         Datapv datapv = new Datapv();
         Evaluation evaluation1 = new Evaluation();
         List<Evaluation> evaluation = new ArrayList<Evaluation>();
@@ -239,11 +239,9 @@ public class TestControleur {
     }
 
     @PostMapping(path = "printPdf")
-    public void printPdf(jakarta.servlet.http.HttpServletResponse response,@ModelAttribute("data") Datapv data){
-        // if(data.getTypePv() == "cc")
-        //     this.testShow(response, data);
-        // else if(data.getTypePv() == "ue")
-        //     testShow(response, data);
+    public String printPdf(jakarta.servlet.http.HttpServletResponse response,@ModelAttribute("data") Datapv data){
+        
+    return "controller is ok";
 
     }
 

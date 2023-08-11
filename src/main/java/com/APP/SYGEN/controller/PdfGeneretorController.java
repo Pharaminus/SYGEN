@@ -45,14 +45,26 @@ public class PdfGeneretorController {
     private EtudiantService etudiantService;
 
     @PostMapping(path = "pvcc")
-    public String testShow(jakarta.servlet.http.HttpServletResponse response, @ModelAttribute("data") Datapv data){
+    public String testShow(jakarta.servlet.http.HttpServletResponse response, @ModelAttribute("data") Datapv data) throws DocumentException{
         Datapv datapv = new Datapv();
+        String htmlTest =  "<!DOCTYPE html>\n" + //
+                "<html lang=\"en\">\n" + //
+                "<head>\n" + //
+                "    <meta charset=\"UTF-8\">\n" + //
+                "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" + //
+                "    <title>Document</title>\n" + //
+                "    \n" + //
+                "</head>\n" + //
+                "<body>\n" + //
+                "    <h1>Hello world !!!</h1>\n" + //
+                "</body>\n" + //
+                "</html>";
         Evaluation evaluation1 = new Evaluation();
         List<Evaluation> evaluation = new ArrayList<Evaluation>();
         evaluation = evaluationRepository.findByTypeEval(data.getTypePv());
         String htmlCorp = "";
-        List<Participe> participes = participeService.getParticipeUe(data.getTypePv(), Integer.parseInt(data.getSemestre()), data.getAnnee(), data.getUe());
-        if(participes.isEmpty() == false){    
+        List<Participe> participes = participeService.getParticipeUe("cc", Integer.parseInt(data.getSemestre()), data.getAnnee(), data.getUe());
+        // if(participes.isEmpty() == false){    
             for(int i = 0; i < participes.size(); i++){
                 htmlCorp = htmlCorp + "<tr>";
                 htmlCorp = htmlCorp + "<td>"+ i +"</td>";
@@ -68,8 +80,7 @@ public class PdfGeneretorController {
             }
             try{
             response.setContentType("application/pdf");
-            
-                response.setHeader("Content-Disposition", "attachment; filename="+data.getTypePv()+"-"+ data.getUe()+"-"+data.getAnnee());
+                response.setHeader("Content-Disposition", "attachment; filename=cc.pdf");
             try (ServletOutputStream outputStream = response.getOutputStream()) {
                 ITextRenderer renderer = new ITextRenderer();
                 renderer.setDocumentFromString(datapv.cCpdfContent(htmlCorp, data.getFiliere(), evaluation.get(0)));
@@ -80,7 +91,7 @@ public class PdfGeneretorController {
                 // Flush and close the output stream
                 outputStream.flush();
                 outputStream.close();
-            } catch (DocumentException | IOException e) {
+            } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
@@ -88,11 +99,11 @@ public class PdfGeneretorController {
                 e.printStackTrace();
             }
             return "Document builds with sucess!!!";
-        }
-        else{
-            return "Document not founded";
+        // }
+        // else{
+        //     return "Document not founded";
 
-        }
+        // }
         
         
 
